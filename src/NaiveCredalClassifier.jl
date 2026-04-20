@@ -1,5 +1,9 @@
 module NaiveCredalClassifier
 
-# Write your package code here.
+export 
+    NaiveCredalClassifier
+    
+include("Utils.jl")
+include("NCC.jl")
 
 end

@@ -1,9 +1,21 @@
 name = "NaiveCredalClassifier"
 uuid = "f48f88b4-357d-4ca3-8c39-cae33f76017d"
-authors = ["Hénoïk Willot"]
 version = "1.0.0-DEV"
+authors = ["Hénoïk Willot"]
+
+[deps]
+AbstractRobustClassifiers = "622d6ea6-a39e-4f93-9edb-f7b18bf55eb6"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+CategoricalArrays = "324d7699-5711-5eae-9e2f-1d82baa6b597"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+MLJModelInterface = "e80e1ace-859a-464e-9ed9-23947d8ae3ea"
 
 [compat]
+AbstractRobustClassifiers = "1.0.0"
+CSV = "0.10.16"
+CategoricalArrays = "1.1.0"
+DataFrames = "1.8.2"
+MLJModelInterface = "1.12.1"
 julia = "1.10.10"
 
 [extras]
