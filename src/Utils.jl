@@ -1,13 +1,13 @@
 using AbstractRobustClassifiers
 const ARC = AbstractRobustClassifiers
 
-function maximality(cond_prob, y_prob, x)
-	dom = compute_maximality_dominance_matrix(cond_prob, y_prob, x)
+function predict(M::ARC.Maximality, cond_prob, y_prob, x)
+	dom = compute_dominance_matrix(M, cond_prob, y_prob, x)
 	pred::ARC.Prediction = ARC.Prediction(dom)
 	return pred.undominated
 end
 
-function compute_maximality_dominance_matrix(cond_prob, y_prob, x)
+function compute_dominance_matrix(M::ARC.Maximality, cond_prob, y_prob, x)
 	dom::ARC.DominanceMatrix = zeros(Bool, size(y_prob,1), size(y_prob,1))
 	for y1 in 1:size(y_prob,1), y2 in 1:size(y_prob,1)
 		(y1 == y2) && (continue)

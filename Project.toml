@@ -1,6 +1,6 @@
 name = "NaiveCredalClassifier"
 uuid = "f48f88b4-357d-4ca3-8c39-cae33f76017d"
-version = "1.0.0-DEV"
+version = "1.0.0"
 authors = ["Hénoïk Willot"]
 
 [deps]

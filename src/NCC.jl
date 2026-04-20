@@ -3,8 +3,9 @@ using MLJModelInterface
 const MMI = MLJModelInterface
 
 MMI.@mlj_model mutable struct NCClassifier <: MMI.Deterministic
-	s::Float64 = 2.0::(_ > 0)                       # imprecise parameter
-	epsilon::Float64 = 0.05::(_ > 0 && _ < 1)       # mixture factor in ϵ-contaminated to avoid 0 probabilities
+	s::Float64 = 2.0::(_ > 0)                                   # imprecise parameter
+	epsilon::Float64 = 0.05::(_ > 0 && _ < 1)                   # mixture factor in ϵ-contaminated to avoid 0 probabilities
+    decisionRule::ARC.DecisionRuleTypes = NaiveCredalClassifier.Maximality() # 
 end
 
 function MMI.fit(m::NCClassifier, verbosity::Int, X, y)
@@ -42,10 +43,10 @@ function MMI.fit(m::NCClassifier, verbosity::Int, X, y)
     return (cond_prob, y_prob, decode_y, decode_x, names_x, cond_count, y_count), cache, report
 end
 
-function MMI.predict(m::NCClassifier, (cond_prob, y_prob, decode_y, _, _, _), Xnew)
+function MMI.predict(m::NCClassifier, (cond_prob, y_prob, decode_y, _, _, _, _), Xnew)
 	y_hat = Vector{CategoricalValue}[]
 	for x in eachrow(Xnew)
-		push!(y_hat, decode_y.(maximality(cond_prob, y_prob, [Int64(MMI.int(x[i])) for i in range(1, size(x, 1))])))
+		push!(y_hat, decode_y.(predict(m.decisionRule, cond_prob, y_prob, [Int64(MMI.int(x[i])) for i in range(1, size(x, 1))])))
 	end
 	return y_hat
 end
