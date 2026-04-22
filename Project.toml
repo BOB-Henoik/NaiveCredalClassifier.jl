@@ -11,7 +11,7 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 MLJModelInterface = "e80e1ace-859a-464e-9ed9-23947d8ae3ea"
 
 [compat]
-AbstractRobustClassifiers = "1.1.0"
+AbstractRobustClassifiers = "1.1.1"
 CSV = "0.10.16"
 CategoricalArrays = "1.1.0"
 DataFrames = "1.8.2"

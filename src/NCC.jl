@@ -43,10 +43,11 @@ function MMI.fit(m::NCClassifier, verbosity::Int, X, y)
     return (cond_prob, y_prob, decode_y, decode_x, names_x, cond_count, y_count), cache, report
 end
 
-function MMI.predict(m::NCClassifier, (cond_prob, y_prob, decode_y, _, _, _, _), Xnew)
+function MMI.predict(m::NCClassifier, fitresult, Xnew)
+    (_, _, decode_y, _, _, _, _) = fitresult
 	y_hat = Vector{CategoricalValue}[]
 	for x in eachrow(Xnew)
-		push!(y_hat, decode_y.(predict(m.decisionRule, cond_prob, y_prob, [Int64(MMI.int(x[i])) for i in range(1, size(x, 1))])))
+		push!(y_hat, decode_y.(predict(m.decisionRule, fitresult, [Int64(MMI.int(x[i])) for i in range(1, size(x, 1))])))
 	end
 	return y_hat
 end
