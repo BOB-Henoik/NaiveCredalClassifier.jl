@@ -5,7 +5,7 @@ const MMI = MLJModelInterface
 MMI.@mlj_model mutable struct NCClassifier <: MMI.Deterministic
 	s::Float64 = 2.0::(_ > 0)                                   # imprecise parameter
 	epsilon::Float64 = 0.05::(_ > 0 && _ < 1)                   # mixture factor in ϵ-contaminated to avoid 0 probabilities
-    decisionRule::ARC.DecisionRuleTypes = NaiveCredalClassifier.Maximality() # 
+    decisionRule::RCB.DecisionRuleTypes = RCB.Maximality() # 
 end
 
 function MMI.fit(m::NCClassifier, verbosity::Int, X, y)
@@ -47,7 +47,7 @@ function MMI.predict(m::NCClassifier, fitresult, Xnew)
     (_, _, decode_y, _, _, _, _) = fitresult
 	y_hat = Vector{CategoricalValue}[]
 	for x in eachrow(Xnew)
-		push!(y_hat, decode_y.(predict(m.decisionRule, fitresult, [Int64(MMI.int(x[i])) for i in range(1, size(x, 1))])))
+		push!(y_hat, decode_y.(RCB.predict(m.decisionRule, fitresult, [Int64(MMI.int(x[i])) for i in range(1, size(x, 1))])))
 	end
 	return y_hat
 end
