@@ -76,5 +76,5 @@ MMI.metadata_model(
     input_scitype=MMI.Table(MMI.OrderedFactor, MMI.Multiclass),
     target_scitype=AbstractVector{<:MMI.Finite},
     output_scitype=AbstractVector{Tuple{<:MMI.Finite}},
-    load_path="NaiveClassifier.NaiveCredalClassifier"
+    load_path="NaiveCredalClassifier.NCClassifier"
 )
